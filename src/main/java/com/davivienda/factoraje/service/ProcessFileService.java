@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.apache.poi.ss.usermodel.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,8 +16,7 @@ import com.davivienda.factoraje.domain.model.UserModel;
 @Service
 public class ProcessFileService {
 
-    private static final Logger log = LoggerFactory.getLogger(ProcessFileService.class);
-
+    private final MailjetEmailService mailjetEmailService;
     private final DocumentService documentService;
     private final UserService userService;
     private final AgreementService agreementService;
@@ -39,11 +36,12 @@ public class ProcessFileService {
     };
 
     public ProcessFileService(DocumentService documentService, UserService userService,
-            AgreementService agreementService, EntityService entityService) {
+            AgreementService agreementService, EntityService entityService, MailjetEmailService mailjetEmailService) {
         this.documentService = documentService;
         this.userService = userService;
         this.agreementService = agreementService;
         this.entityService = entityService;
+        this.mailjetEmailService = mailjetEmailService;
     }
 
     private void validarCabeceras(Row headerRow) {
