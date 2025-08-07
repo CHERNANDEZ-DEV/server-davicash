@@ -1,5 +1,7 @@
 package com.davivienda.factoraje.domain.dto.Emails;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +15,6 @@ public class HTMLVariablesDTO {
     private String numeroLineaCredito;
     private String nombreProveedor;
     private String numeroCuentaProveedor;
-    private String montoDesembolsar;
+    private String NIT;
+    private BigDecimal montoDesembolsar;
 }

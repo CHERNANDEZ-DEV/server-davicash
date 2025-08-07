@@ -10,6 +10,8 @@ import com.davivienda.factoraje.domain.dto.Emails.DestinatarioRequestDTO;
 import com.davivienda.factoraje.domain.dto.Emails.HTMLVariablesDTO;
 import com.davivienda.factoraje.domain.model.ParameterModel;
 import com.mailjet.client.ClientOptions;
+
+import java.text.DecimalFormat;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,10 +25,15 @@ public class MailjetEmailService {
     private static final String PARAM_KEY_API_KEY = "mailjet.api.key";
     private static final String PARAM_KEY_API_SECRET = "mailjet.api.secret";
     private static final String PARAM_KEY_EMAIL = "mailjet.email.sender";
+    private static final String PARAM_KEY_EMAIL_NAME = "mailjet.email.sender.name";
+    private static final String PARAM_KEY_EMAIL_SUBJECT = "mailjet.email.sender.subject";
+    
 
     private String paramValueApiKey;
     private String paramValueApiSecret;
     private String paramValueEmailSender;
+    private String paramValueEmailSenderName;
+    private String paramValueEmailSenderSubject;
 
     private MailjetClient mailjetClient;
 
@@ -47,6 +54,13 @@ public class MailjetEmailService {
                     break;
                 case PARAM_KEY_EMAIL:
                     paramValueEmailSender = p.getValue();
+                    break;
+                case PARAM_KEY_EMAIL_NAME:
+                    paramValueEmailSenderName = p.getValue();
+                    break;
+                case PARAM_KEY_EMAIL_SUBJECT:
+                    paramValueEmailSenderSubject = p.getValue();
+                    break;
                 default:
                     break;
             }
@@ -92,7 +106,7 @@ public class MailjetEmailService {
                         "        <p>" +
                         "            Por medio de la presente, <strong>[Nombre de la Empresa]</strong> (en adelante, “la Empresa”), con Número de "
                         +
-                        "            Identificación Tributaria (NIT), solicita y autoriza formalmente el desembolso de nuestra Línea de Crédito "
+                        "            Identificación Tributaria (NIT) número <strong>[Número de NIT]</strong>, solicita y autoriza formalmente el desembolso de nuestra Línea de Crédito "
                         +
                         "            número <strong>[Número de Línea de Crédito]</strong> para el pago de proveedores, según el detalle que se "
                         +
@@ -100,11 +114,7 @@ public class MailjetEmailService {
                         "        </p>" +
                         "        <p><strong>Detalles del Desembolso:</strong></p>" +
                         "        <ul>" +
-                        "            <li><strong>Nombre del Proveedor:</strong> [Nombre del Proveedor]</li>" +
-                        "            <li><strong>Número de Cuenta del Proveedor:</strong> [Número de Cuenta del Proveedor]</li>"
-                        +
-                        "            <li><strong>Monto a Desembolsar:</strong> [Monto a Desembolsar]</li>" +
-                        "            <p>...................................</p>" +
+                        "            <li><strong>Monto a Desembolsar: $</strong> [Monto a Desembolsar]</li>" +
                         "        </ul>" +
                         "        <p>" +
                         "            Agradecemos poder atender las solicitudes de adelanto de pago a nuestros proveedores, quienes dan por "
@@ -123,9 +133,8 @@ public class MailjetEmailService {
                         "                para dicho fin.</li>" +
                         "            <li><strong>Conformidad con el Contrato:</strong> Esta autorización se otorga en conformidad con los "
                         +
-                        "                términos y condiciones del contrato de la línea de crédito número <strong>[Número de Línea de "
+                        "                términos y condiciones del contrato de la línea de crédito número <strong>[Número de Línea de Crédito]</strong>, el cual permanece en pleno vigor y efecto.</li>" 
                         +
-                        "                Crédito]</strong>, el cual permanece en pleno vigor y efecto.</li>" +
                         "            <li><strong>Liberación de Responsabilidad:</strong> La Empresa libera a Banco Davivienda Salvadoreño, S.A. de toda "
                         +
                         "                responsabilidad por cualquier disputa o reclamo que pueda surgir entre la Empresa y sus proveedores en "
@@ -161,9 +170,9 @@ public class MailjetEmailService {
                         "      <td style=\"padding:24px 32px; text-align:center;\">" +
                         "        <h2 style=\"color:#b40000; margin:0 0 16px 0;\">Confirmación de carga de documentos</h2>" +
                         "        <p style=\"color:#333333; font-size:14px; line-height:1.5; margin:0 0 24px 0;\">" +
-                        "          Estimado usuario,<br><br>" +
-                        "          Se le notifica que existen nuevos documentos disponibles para su financiamiento. " +
-                        "          Ingrese a la plataforma para revisarlos y continuar con el proceso." +
+                            "          Estimado proveedor,<br><br>" +
+                            "          Le informamos que hay nuevos documentos disponibles para su financiaciamiento." +
+                            "          Por favor, ingrese a la plataforma para revisarlos y continuar con el proceso." +
                         "        </p>" +
 
                         /* --- BOTÓN CTA --- */
@@ -206,8 +215,8 @@ public class MailjetEmailService {
                         "        <h2 style=\"color:#b40000; margin:0 0 16px 0;\">Documentos listos para aprobación</h2>" +
                         "        <p style=\"color:#333333; font-size:14px; line-height:1.5; margin:0 0 24px 0;\">" +
                         "          Estimado usuario,<br><br>" +
-                        "          Se ha solicitado el financiamiento de nuevos documentos y se encuentran listos para su aprobación. " +
-                        "          Ingrese a la plataforma para revisarlos y completar el proceso." +
+                        "          Se ha solicitado el financiamiento de nuevos documentos." +
+                        "          Ingrese a la plataforma para aprobarlos y completar el proceso." +
                         "        </p>" +
 
                         /* --- BOTÓN CTA --- */
@@ -269,11 +278,7 @@ public class MailjetEmailService {
                         "        </p>" +
                         "        <p><strong>Detalles del Desembolso:</strong></p>" +
                         "        <ul>" +
-                        "            <li><strong>Nombre del Proveedor:</strong> [Nombre del Proveedor]</li>" +
-                        "            <li><strong>Número de Cuenta del Proveedor:</strong> [Número de Cuenta del Proveedor]</li>"
-                        +
-                        "            <li><strong>Monto a Desembolsar:</strong> [Monto a Desembolsar]</li>" +
-                        "            <p>...................................</p>" +
+                        "            <li><strong>Monto máximo aprobado: $</strong> [Monto a Desembolsar]</li>" +
                         "        </ul>" +
                         "        <p>" +
                         "            Agradecemos poder atender las solicitudes de adelanto de pago a nuestros proveedores, quienes dan por "
@@ -292,9 +297,8 @@ public class MailjetEmailService {
                         "                para dicho fin.</li>" +
                         "            <li><strong>Conformidad con el Contrato:</strong> Esta autorización se otorga en conformidad con los "
                         +
-                        "                términos y condiciones del contrato de la línea de crédito número <strong>[Número de Línea de "
+                        "                términos y condiciones del contrato de la línea de crédito número <strong>[Número de Línea de Crédito]</strong>, el cual permanece en pleno vigor y efecto.</li> "
                         +
-                        "                Crédito]</strong>, el cual permanece en pleno vigor y efecto.</li>" +
                         "            <li><strong>Liberación de Responsabilidad:</strong> La Empresa libera a Banco Davivienda Salvadoreño, S.A. de toda "
                         +
                         "                responsabilidad por cualquier disputa o reclamo que pueda surgir entre la Empresa y sus proveedores en "
@@ -311,6 +315,74 @@ public class MailjetEmailService {
                         "</body>" +
                         "</html>";
                 break;
+            case 5:
+                html =
+                        "<!DOCTYPE html>" +
+                        "<html lang=\"es\">" +
+                        "<head>" +
+                        "  <meta charset=\"UTF-8\">" +
+                        "  <title>Documentos listos para aprobación</title>" +
+                        "</head>" +
+                        "<body style=\"font-family: Verdana, sans-serif; background-color:#ffffff; margin:0; padding:0;\">" +
+
+                        /* --- CONTENEDOR PRINCIPAL (sin borde) --- */
+                        "  <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" " +
+                        "         style=\"background-color:#ffffff;\">" +
+
+                        /* --- CABECERA --- */
+                        "    <tr>" +
+                        "      <td style=\"padding:24px 32px; text-align:center;\">" +
+                        "        <h2 style=\"color:#b40000; margin:0 0 16px 0;\">Nueva carga de documentos</h2>" +
+                        "        <p style=\"color:#333333; font-size:14px; line-height:1.5; margin:0 0 24px 0;\">" +
+                        "          Estimado pagador,<br><br>" +
+                        "          Le informamos que se ha cargado un nuevo lote de facturas en la plataforma, disponible para que sus proveedores gestionen su financiaciamiento." +
+                        "        </p>" +
+
+                        /* --- PIE DE PÁGINA --- */
+                        "    <tr>" +
+                        "      <td style=\"padding:16px 32px; font-size:12px; color:#777777; text-align:center;\">" +
+                        "        Si tiene alguna consulta, responda a este correo o comuníquese con su ejecutivo de cuenta. <br><br>" +
+                        "         <strong>BANCO DAVIVIENDA SALVADOREÑO S.A.</strong>" +
+                        "      </td>" +
+                        "    </tr>" +
+                        "  </table>" +
+                        "</body>" +
+                        "</html>";
+                break; 
+            case 6:
+                    html =
+                        "<!DOCTYPE html>" +
+                        "<html lang=\"es\">" +
+                        "<head>" +
+                        "  <meta charset=\"UTF-8\">" +
+                        "  <title>Documentos listos para aprobación</title>" +
+                        "</head>" +
+                        "<body style=\"font-family: Verdana, sans-serif; background-color:#ffffff; margin:0; padding:0;\">" +
+
+                        /* --- CONTENEDOR PRINCIPAL (sin borde) --- */
+                        "  <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" " +
+                        "         style=\"background-color:#ffffff;\">" +
+
+                        /* --- CABECERA --- */
+                        "    <tr>" +
+                        "      <td style=\"padding:24px 32px; text-align:center;\">" +
+                        "        <h2 style=\"color:#b40000; margin:0 0 16px 0;\">Nueva carga de documentos</h2>" +
+                        "        <p style=\"color:#333333; font-size:14px; line-height:1.5; margin:0 0 24px 0;\">" +
+                        "          Estimado operario,<br><br>" +
+                        "          Le informamos que se han seleccionado nuevos documentos para ser financiados, bajo el modo de operación BLUE" +
+                        "        </p>" +
+
+                        /* --- PIE DE PÁGINA --- */
+                        "    <tr>" +
+                        "      <td style=\"padding:16px 32px; font-size:12px; color:#777777; text-align:center;\">" +
+                        "        Si tiene alguna consulta, responda a este correo o comuníquese con su ejecutivo de cuenta. <br><br>" +
+                        "         <strong>BANCO DAVIVIENDA SALVADOREÑO S.A.</strong>" +
+                        "      </td>" +
+                        "    </tr>" +
+                        "  </table>" +
+                        "</body>" +
+                        "</html>";
+                break;
             default:
                 html = "<!DOCTYPE html><html><body><p>Error: tipo de HTML inválido.</p></body></html>";
                 break;
@@ -319,12 +391,17 @@ public class MailjetEmailService {
     }
 
     private String reemplazarVariablesHtml(String html, HTMLVariablesDTO vars) {
+    
+        DecimalFormat df = new DecimalFormat("#,##0.00");     
+        String montoFmt = df.format(vars.getMontoDesembolsar());  
+
         return html
                 .replace("[Nombre de la Empresa]", vars.getNombreEmpresa())
                 .replace("[Número de Línea de Crédito]", vars.getNumeroLineaCredito())
                 .replace("[Nombre del Proveedor]", vars.getNombreProveedor())
                 .replace("[Número de Cuenta del Proveedor]", vars.getNumeroCuentaProveedor())
-                .replace("[Monto a Desembolsar]", vars.getMontoDesembolsar());
+                .replace("[Monto a Desembolsar]", montoFmt)
+                .replace("[Número de NIT]", vars.getNIT());
     }
 
     public void sendEmail(List<DestinatarioRequestDTO> destinatarios, int tipoHtml, HTMLVariablesDTO variables)
@@ -337,14 +414,16 @@ public class MailjetEmailService {
         }
 
         String htmlSeleccionado = obtenerHtmlPorTipo(tipoHtml);
-        htmlSeleccionado = reemplazarVariablesHtml(htmlSeleccionado, variables);
-
+        if(tipoHtml == 1 || tipoHtml == 4){
+            htmlSeleccionado = reemplazarVariablesHtml(htmlSeleccionado, variables);
+        }
+       
         JSONObject mensaje = new JSONObject()
                 .put("From", new JSONObject()
                         .put("Email", paramValueEmailSender)
-                        .put("Name", "Davicash"))
+                        .put("Name", paramValueEmailSenderName))
                 .put("To", toArray)
-                .put("Subject", "Notificaciones automáticas")
+                .put("Subject", paramValueEmailSenderSubject)
                 .put("HTMLPart", htmlSeleccionado);
 
         MailjetRequest request = new MailjetRequest(Emailv31.resource)

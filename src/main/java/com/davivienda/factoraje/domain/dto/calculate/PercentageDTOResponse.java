@@ -1,5 +1,7 @@
 package com.davivienda.factoraje.domain.dto.calculate;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PercentageDTOResponse {
     
-    private double percentage;
+    private BigDecimal percentage;
 }

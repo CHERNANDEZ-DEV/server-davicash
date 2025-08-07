@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class EmailRequestDTO {
 
     private List<DestinatarioRequestDTO> destinatarios;
-    private int tipoHtml; // 1, 2, 3, .... Los que sean necesarios
+    private int tipoHtml; 
     private HTMLVariablesDTO htmlVariables;
 
 }

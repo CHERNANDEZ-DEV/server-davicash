@@ -1,5 +1,6 @@
 package com.davivienda.factoraje.domain.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import org.hibernate.annotations.GenericGenerator; // Importación para Hibernate 5
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -43,9 +44,9 @@ public class DocumentModel {
     @Column(nullable = false, unique = true)
     private String documentNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 2)
     @NotNull
-    private Double amount;
+    private BigDecimal amount;
 
     @NotBlank(message = "Issue Date cannot be blank")
     @Column(nullable = false)

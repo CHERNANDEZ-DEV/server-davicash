@@ -210,9 +210,12 @@ public class AgreementController {
         }
     }
 
-    @PostMapping("/updateDocuments/{agreementId}/{status}")
-    public ResponseEntity<?> updateDocuments(@PathVariable String agreementId,
+    @PostMapping("/updateDocuments/{agreementId}/{status}/{payerId}/{authMode}")
+    public ResponseEntity<?> updateDocuments(
+            @PathVariable String agreementId,
             @PathVariable String status,
+            @PathVariable String payerId,
+            @PathVariable Integer authMode,
             @RequestBody UpdateDocumentsRequestDTO documentIds) {
         log.info("POST /api/agreement/updateDocuments/{}/{} - update documents: {}", agreementId, status, documentIds);
         if (agreementId == null || agreementId.trim().isEmpty() || status == null || status.trim().isEmpty()) {
@@ -221,7 +224,8 @@ public class AgreementController {
                     .body("Los parámetros 'agreementId' y 'status' no pueden ser vacíos");
         }
         try {
-            AgreementModel updated = agreementService.updateDocuments(agreementId, status, documentIds);
+            agreementService.loadParameters();
+            AgreementModel updated = agreementService.updateDocuments(agreementId, status, documentIds, payerId, authMode);
             log.info("Documents updated for agreement {} with status {}", agreementId, status);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException ex) {

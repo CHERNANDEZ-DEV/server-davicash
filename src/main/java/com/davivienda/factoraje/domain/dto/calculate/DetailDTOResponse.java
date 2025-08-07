@@ -1,5 +1,7 @@
 package com.davivienda.factoraje.domain.dto.calculate;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +13,8 @@ public class DetailDTOResponse {
 
     private String cutOffDate;
     private String documentNumber;
-    private double amountToFinance;
-    private double interests;
-    private double commissions;
-    private double amountToBeDisbursed;
+    private BigDecimal amountToFinance;
+    private BigDecimal interests;
+    private BigDecimal commissions;
+    private BigDecimal amountToBeDisbursed;
 }

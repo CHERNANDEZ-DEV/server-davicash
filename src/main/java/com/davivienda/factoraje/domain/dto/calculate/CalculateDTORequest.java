@@ -1,9 +1,6 @@
 package com.davivienda.factoraje.domain.dto.calculate;
 
-import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,6 @@ public class CalculateDTORequest {
     private String cutOffDate;
     private String documentNumber;
     private Integer diffDays;
-    private double amount;
+    private BigDecimal amount;
 
 }

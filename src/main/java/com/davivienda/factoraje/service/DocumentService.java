@@ -1,6 +1,8 @@
 package com.davivienda.factoraje.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,12 @@ public class DocumentService {
         }
         log.debug("Saving document with number {}", document.getDocumentNumber());
         return documentRepository.save(document);
+    }
+
+    public Optional<DocumentModel> getDocumentById(UUID documentId){
+
+        return documentRepository.findById(documentId);
+
     }
 
     public List<DocumentModel> getAllDocuments() {

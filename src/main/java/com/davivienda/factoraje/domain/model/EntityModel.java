@@ -44,6 +44,7 @@ public class EntityModel {
     private String name;
     private String nit;
     private String accountBank;
+    private String creditLineNumber; 
     private String email;
     private Boolean authenticationMode; // 0 = Conventional, 1 = Direct
     private Boolean entityType;

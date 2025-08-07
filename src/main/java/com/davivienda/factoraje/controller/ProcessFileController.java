@@ -31,7 +31,6 @@ public class ProcessFileController {
     }
 
     @PostMapping("/upload-excel-two")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<?> uploadExcelFileTwo(
             @RequestParam("file") @NotNull MultipartFile file,
             @RequestParam("payerId") @NotNull UUID payerId,
@@ -53,6 +52,7 @@ public class ProcessFileController {
         }
 
         try {
+            processFileService.loadParameters();
             String mensaje = processFileService.procesarYGuardarExcelDos(file, payerId, userId);
             log.info("File processed successfully: {} rows saved", mensaje);
             return ResponseEntity.ok(mensaje);
@@ -71,7 +71,6 @@ public class ProcessFileController {
     }
 
     @PostMapping("/upload-excel")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<?> uploadExcelFile(
             @RequestParam("file") @NotNull MultipartFile file,
             @RequestParam("payerId") @NotNull UUID payerId,

@@ -1,5 +1,6 @@
 package com.davivienda.factoraje.domain.dto.calculate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CalculateDTOResponse {
 
-    private double amountToFinance;
-    private double interests;
-    private double commissions;
-    private double amountToBeDisbursed;
+    private BigDecimal amountToFinance;
+    private BigDecimal interests;
+    private BigDecimal commissions;
+    private BigDecimal amountToBeDisbursed;
     private List<DetailDTOResponse> detail = new ArrayList<>();
 }

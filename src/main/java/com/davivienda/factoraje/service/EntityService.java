@@ -52,7 +52,7 @@ public class EntityService {
         return entityRepository.findAll().stream()
                 .filter(e -> code.equals(e.getCode()))
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Entidad no encontrada con code=" + code));
+                .orElse(null);
     }
 
     public EntityModel getEntityById(UUID id) {
