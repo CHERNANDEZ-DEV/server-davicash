@@ -25,9 +25,35 @@
 
     <dependencies>
 
+        <!--  entornohsbc.jar  -->
+        <dependency>
+            <groupId>com.davivienda.entorno</groupId>
+            <artifactId>entornohsbc</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
+        <!--  fabricaEntornoDB.jar  -->
+        <dependency>
+            <groupId>com.davivienda.entorno</groupId>
+            <artifactId>fabricaEntornoDB</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
+        <!--  iconexionhttp.jar  -->
+        <dependency>
+            <groupId>com.davivienda.entorno</groupId>
+            <artifactId>iconexionhttp</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
         <dependency>

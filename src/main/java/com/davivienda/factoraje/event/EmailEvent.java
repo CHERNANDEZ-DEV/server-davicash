@@ -1,7 +1,5 @@
 package com.davivienda.factoraje.event;
 
-import java.util.UUID;
-
 import com.davivienda.factoraje.domain.dto.Emails.EmailRequestDTO;
 
 import lombok.AllArgsConstructor;

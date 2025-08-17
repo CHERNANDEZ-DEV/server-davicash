@@ -1,13 +1,12 @@
 package com.davivienda.factoraje.domain.model;
 
-import java.util.UUID; // Importación necesaria para el tipo de ID
+import java.util.UUID; 
 
-import org.hibernate.annotations.GenericGenerator; // Importación para Hibernate 5
+import org.hibernate.annotations.GenericGenerator; 
 
-// Importaciones corregidas para Spring Boot 2 (javax)
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue; // Importación necesaria
+import javax.persistence.GeneratedValue; 
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -29,7 +28,7 @@ public class ParameterModel {
         strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", columnDefinition = "UUID", updatable = false, nullable = false)
-    private UUID id; // Corregido de String a UUID
+    private UUID id;
 
     @Column(name = "param_key", unique = true, nullable = false)
     private String key;

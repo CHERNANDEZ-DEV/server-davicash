@@ -1,8 +1,7 @@
 package com.davivienda.factoraje.service;
 
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
+import org.springframework.cache.annotation.Cacheable;
 
 import org.springframework.stereotype.Service;
 
@@ -24,5 +23,19 @@ public class ParameterService {
 
     public void saveParameter(ParameterModel parameter) {
         parameterRepository.save(parameter);
+    }
+
+    /**
+     * Obtiene el valor de un parámetro usando su 'key'.
+     * El resultado se almacena en la caché "parameters".
+    */
+    @Cacheable(value = "parameters", key = "#key")
+    public String getValueByKey(String key) {
+        System.out.println("--- BUSCANDO EN BD EL PARÁMETRO CON KEY: " + key + " ---");
+
+        // Usamos el nuevo método findByKey y el getter getValue
+        return parameterRepository.findByKey(key)
+                .map(ParameterModel::getValue)
+                .orElseThrow(() -> new RuntimeException("Parámetro no encontrado: " + key));
     }
 }

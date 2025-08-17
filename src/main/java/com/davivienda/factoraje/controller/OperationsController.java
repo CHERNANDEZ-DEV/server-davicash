@@ -40,7 +40,7 @@ public class OperationsController {
         }
 
         try {
-            operationsService.loadParameters();
+            //operationsService.loadParameters();
             CalculateDTOResponse response = operationsService.calculate(request);
             logger.info("Calculation successful for {} items", request.size());
             return ResponseEntity.ok(response);

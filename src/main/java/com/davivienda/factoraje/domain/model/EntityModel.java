@@ -1,21 +1,18 @@
 package com.davivienda.factoraje.domain.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator; // Importación para Hibernate 5
+import org.hibernate.annotations.GenericGenerator; 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-// Importaciones corregidas para Spring Boot 2 (javax)
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue; // Importación necesaria
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -46,7 +43,7 @@ public class EntityModel {
     private String accountBank;
     private String creditLineNumber; 
     private String email;
-    private Boolean authenticationMode; // 0 = Conventional, 1 = Direct
+    private Boolean authenticationMode;
     private Boolean entityType;
 
     @JsonIgnore
